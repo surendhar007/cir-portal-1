@@ -80,8 +80,7 @@ class StudentManager(models.Manager):
 
         # do something with the book
         return student
-
-
+BRANCH = (('CSE', _('CSE')), ('ME', _('ME')), ('EEE', _('EEE')), ('CSA', _('CSA')), ('ECE', _('ECE')))
 class Student(models.Model):
     aums_id = models.CharField(_('Aums ID'),  max_length=32, blank=False, unique=True,primary_key=True)
     name = models.CharField(_('First Name'), max_length=32, blank=True, null=True)
@@ -98,7 +97,51 @@ class Student(models.Model):
     s5 = models.FloatField(_('S5 Mark'), blank=True, null=True)
     s6 = models.FloatField(_('S6 Mark'), blank=True, null=True)
     cgpa = models.FloatField(_('CGPA'),  blank=True, null=True)
-    curr_arrears = models.IntegerField(_('No of current arrears'),blank=True, null=True)
-    hist_arrears = models.IntegerField(_('No of history arrears'), blank=True, null=True)
+    curr_arrears = models.FloatField(_('No of current arrears'),blank=True, null=True)
+    hist_arrears = models.FloatField(_('No of history arrears'), blank=True, null=True)
 
     Objects = StudentManager()
+
+TYPES = (('Technical', _('Technical')), ('HR', _('HR')), ('Quantitative', _('Quantitative')), ('Verbals', _('Verbals')), ('Reasoning', _('Reasoning')), ('Eligibility', _('Eligibility')), ('Aptitude', _('Aptitude')))
+
+
+class Test(models.Model):
+    id = models.AutoField(primary_key=True)
+    name=models.CharField(_('Test Name'), max_length=25, unique=False)
+    date = models.DateField(_('Test Date'), null=False)
+    type = models.CharField(_('Test Type'), max_length=20, choices=TYPES, blank=False, unique=False)
+
+class TechnicalTest(models. Model):
+    test = models.ForeignKey(Test,null=False, blank =False)
+    student = models.ForeignKey(Student, null=False, blank=False)
+    marks=models.FloatField(_('Mark'),blank=True,null=True)
+
+class HRTest(models. Model):
+    test = models.ForeignKey(Test,null=False, blank =False)
+    student = models.ForeignKey(Student, null=False, blank=False)
+    marks=models.FloatField(_('Mark'),blank=True,null=True)
+
+class QuantatitiveTest(models. Model):
+    test = models.ForeignKey(Test,null=False, blank =False)
+    student = models.ForeignKey(Student, null=False, blank=False)
+    marks=models.FloatField(_('Mark'),blank=True,null=True)
+
+class VerbalTest(models. Model):
+    test = models.ForeignKey(Test,null=False, blank =False)
+    student = models.ForeignKey(Student, null=False, blank=False)
+    marks=models.FloatField(_('Mark'),blank=True,null=True)
+
+class ReasoningTest(models. Model):
+    test = models.ForeignKey(Test,null=False, blank =False)
+    student = models.ForeignKey(Student, null=False, blank=False)
+    marks=models.FloatField(_('Mark'),blank=True,null=True)
+
+class EligibilityTest(models. Model):
+    test = models.ForeignKey(Test,null=False, blank =False)
+    student = models.ForeignKey(Student, null=False, blank=False)
+    marks=models.FloatField(_('Mark'),blank=True,null=True)
+
+class AptitudeTest(models. Model):
+    test = models.ForeignKey(Test,null=False, blank =False)
+    student = models.ForeignKey(Student, null=False, blank=False)
+    marks=models.FloatField(_('Mark'),blank=True,null=True)
